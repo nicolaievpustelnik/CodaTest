@@ -67,4 +67,12 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->route('/project/list', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Project\ListHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'project.list');
     $app->route('/project/remove/{id}', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Project\RemoveHandler::class], ['GET', 'DELETE', 'OPTIONS', 'HEAD'], 'project.remove');
     $app->route('/project/save', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Project\SaveHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'project.save');
+
+    /* CLIENT */
+    $app->route('/client/fetch/{id}', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Client\FetchHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'client.fetch');
+    $app->route('/client/list', [\Mia\Auth\Handler\AuthHandler::class,App\Handler\Client\ListHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'client.list');
+    $app->route('/client/remove/{id}', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Client\RemoveHandler::class], ['GET', 'DELETE', 'OPTIONS', 'HEAD'], 'client.remove');
+    $app->route('/client/save', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Client\SaveHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'client.save');
+    $app->route('/client/assign-project', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Client\AssignProject::class], ['POST', 'OPTIONS', 'HEAD'], 'client.assign-project');
+    $app->route('/client/dashboard', [\Mia\Auth\Handler\AuthHandler::class, App\Handler\Client\Dashboard::class], ['GET', 'OPTIONS', 'HEAD'], 'client.dashboard');
 };

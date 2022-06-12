@@ -25,4 +25,9 @@ class ErrorFactory
     public static function paramRequired(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(2, 'No se han enviado parametros obligatorios'); }
     public static function permissionExist(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(3, 'Ya se posee permisos.'); }
     public static function documentDeleted(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(4, 'El documento ya no se encuentra disponible, contactar al administrador'); }
+
+    public static function notExistClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(1, "The client doesn't exists."); }
+    public static function userAuth(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(2, 'Failed user authorization.'); }
+    public static function existClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(3, "The client already exists."); }
+    public static function existProjectForClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(3, "A project already exists for that client."); }
 }
