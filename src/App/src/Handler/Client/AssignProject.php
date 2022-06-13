@@ -3,7 +3,7 @@
 namespace App\Handler\Client;
 
 /**
- * Description of SaveHandler
+ * Description of AssignProject
  * 
  * @OA\Post(
  *     path="/client/assign-project",

@@ -5,7 +5,7 @@ namespace App\Handler\Client;
 /**
  * Description of Dashboard
  * 
- * @OA\Post(
+ * @OA\Get(
  *     path="/client/dashboard",
  *     summary="Project dashboard",
  *     tags={"Client"},
@@ -49,15 +49,31 @@ class Dashboard extends \Mia\Auth\Request\MiaAuthRequestHandler
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface 
     {
         // Get item process
-        $item = $this->getForCreatAtClient($request);
+        $clients = $this->getForCreatAtClient($request);
+        $forClient = null;
 
-        var_dump($item);
-        
+        if (count($clients) > 0) {
+            
+            $forClient = new \App\Model\Client();
+    
+            foreach ($clients as $i => $client) {
+    
+                $arrayForClient[$i] = [
+                    $client['create_at'] => $client['count_client']
+                ];
+                
+            }
+    
+            $forClient->clients = $arrayForClient;
 
+        } else {
+
+            return \App\Factory\ErrorFactory::notClientsForCreateAt();
+        }
 
 
         // Return response
-        return new \Mia\Core\Diactoros\MiaJsonResponse($item->toArray());
+        return new \Mia\Core\Diactoros\MiaJsonResponse($forClient->toArray());
     }
     
     /**
@@ -69,7 +85,13 @@ class Dashboard extends \Mia\Auth\Request\MiaAuthRequestHandler
     {
 
         // Search DB 
-        $item = \App\Model\Client::fromQuery("select * from client where created_at BETWEEN date_add(NOW(), INTERVAL -7 DAY) AND NOW()");
+        $item = \App\Model\Client::fromQuery(
+            "SELECT DATE(created_at) AS create_at, COUNT(created_at) AS count_client 
+            FROM client 
+            WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -7 DAY) AND NOW()
+            GROUP BY DATE(created_at)
+            HAVING COUNT(created_at) > 0"
+        );
 
         return $item->toArray();
         

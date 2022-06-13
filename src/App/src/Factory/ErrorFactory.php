@@ -11,7 +11,7 @@ namespace App\Factory;
 /**
  * Description of ErrorFactory
  *
- * @author matiascamiletti
+ * @author NicolaievBrito
  */
 class ErrorFactory 
 {
@@ -29,5 +29,6 @@ class ErrorFactory
     public static function notExistClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(1, "The client doesn't exists."); }
     public static function userAuth(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(2, 'Failed user authorization.'); }
     public static function existClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(3, "The client already exists."); }
-    public static function existProjectForClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(3, "A project already exists for that client."); }
+    public static function existProjectForClient(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(4, "A project already exists for that client."); }
+    public static function notClientsForCreateAt(){ return new \Mia\Core\Diactoros\MiaJsonErrorResponse(5, "There aren't clients for that date range."); }
 }
